@@ -23,7 +23,7 @@ SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = pygame.display.set_mode(SCREEN_SIZE)
 
 # load the shape we want to draw
-shape = shape2d('square.2')
+shape = shape2d('ship.2')
 
 # core loop
 QUIT = False
@@ -43,6 +43,7 @@ while not QUIT:
             # all of our key bindings go here
             if event.key == pygame.K_ESCAPE:
                 QUIT = True
+
             # WASD for shape translation
             if event.key == pygame.K_w:
                 shape.translate(0, -5)
@@ -52,10 +53,18 @@ while not QUIT:
                 shape.translate(0, 5)
             if event.key == pygame.K_d:
                 shape.translate(5, 0)
+
+            # scaling with z/c
             if event.key == pygame.K_z:
                 shape.scale(0.95)
             if event.key == pygame.K_c:
                 shape.scale(1.05)
+
+            # rotation with q/e
+            if event.key == pygame.K_q:
+                shape.rotate(15)
+            if event.key == pygame.K_e:
+                shape.rotate(-15)
 
     screen.fill(pygame.Color(0,0,0))
 

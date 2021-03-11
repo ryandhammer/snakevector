@@ -1,5 +1,9 @@
 import pygame
 
+from math import pi, sin, cos
+
+TO_RADS = pi / 180
+
 class shape2d:
     def __init__(self, source):
         self.source = source
@@ -62,6 +66,7 @@ class shape2d:
         self.tx += dx
         self.ty += dy
 
+
     def scale(self, factor):
         """Shrinks or enlarges the shape based on factor.  Values lower than
         1.0 shrink it and greater than 1.0 grow it.  1 is a waste of time.
@@ -77,4 +82,21 @@ class shape2d:
         for vert in range(len(self.verticies)):
             x, y = self.verticies[vert]
             self.verticies[vert] = (x * factor, y * factor)
-            
+
+
+    def rotate(self, angle):
+        """Rotates all verticies around the origin of the shape by angle,
+        which is specified in degrees.  This is why translation is written
+        the way it is :)"""
+
+        theta = angle * TO_RADS
+
+        # Once again, tuples so we'll have to iterate over the list and
+        # replace them with the rotated values.
+        for vert in range(len(self.verticies)):
+            x, y = self.verticies[vert]
+
+            xr = x * cos(theta) - y * sin(theta)
+            yr = x * sin(theta) + y * cos(theta)
+
+            self.verticies[vert] = (xr, yr)
